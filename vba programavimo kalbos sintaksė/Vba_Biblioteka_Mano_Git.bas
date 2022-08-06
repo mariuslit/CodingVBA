@@ -1,24 +1,36 @@
 Attribute VB_Name = "Vba_Biblioteka_Mano_Git"
-Sub VbaManoGitBiblioteka()
+' VBA mano kodai, metodai, funkcijos, klases
 
-' MESSAGE, KONSOLË
-'    MsgBox ("''MANO VBA BIBLIOTEKA GitHub'e''")
-    Debug.Print "SPAUSDINIMAS Á KONSOLÆ"
+' VBA metodai (Sub) ir funkcijos (Function) randasi modulyje "Modules"
+Sub VBA_Sintakse()
+
+' MESSAGE, CONSOLE
+'    MsgBox ("MANO VBA BIBLIOTEKA GitHub'e")
+    Debug.Print "Spausdinimas i konsole"
 
 ' KINTAMØJØ DEKLARAVIMAS
-    Dim xtx As String '(Integer, Diuble, Boolean, Variant)
-    txt = "ne oþys"
-
-' IF
-    If txt = "oþys" Then
+    Dim xtx As String ' Integer, Diuble, Boolean, Variant
+    txt = "Bezdalius"
 
 ' FOR
-    For i = 5 To 8
-        Debug.Print i
+    For i = 5 To 7 Step 2
+        Debug.Print (i)
     Next
+    ' Step nebutinas
 
+' IF
+    If txt = "Ne Bezdalius" Then
 
-' KLAIDØ GAUDYMAS
+    End If
+    ' End If - jei daugiau nei vien eilute
+
+' GO TO NAUDOJIMAS
+    GoTo Ex1
+Ex1:
+    GoTo Ex2
+Ex2:
+
+' KLAIDU GAUDYMAS
         ' 1
         On Error Resume Next
 
@@ -26,16 +38,16 @@ Sub VbaManoGitBiblioteka()
         On Error GoTo EX
 EX:     Exit Sub
 
-    End If
+End Sub ' Sub VbaManoGitBiblioteka()
 
-' GO TO NAUDOJIMAS
-    GoTo EH
-EH:
+' VBA klases randasi modulyje "Class Modules"
+Sub VBA_Klase()
 
-    ' KLASËS
     ' Class Modules: "Komponentas"
+
+    ' matomumas Public jei noriu pasiekti visame projekte
     
-    ' Klasës kintamieji:
+    ' Klases kintamieji:
     'Public projektas As String
     'Public kas_atrinko As String
     'Public rowsCount As String
@@ -59,4 +71,5 @@ EH:
     ' Get
     MsgBox (o.gamintojas)
 
-End Sub ' Private Sub VbaManoGitBiblioteka()
+End Sub
+
