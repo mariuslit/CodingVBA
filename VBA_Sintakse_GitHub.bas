@@ -1,4 +1,4 @@
-Attribute VB_Name = "Vba_Biblioteka_Mano_Git"
+Attribute VB_Name = "VBA_Sintakse_GitHub"
 ' VBA mano kodai, metodai, funkcijos, klases
 Sub aba1_CopyPaste_Reikia_Sutvarkyti()
     
@@ -207,13 +207,11 @@ Sub vba5_Excel_CRUD_Copy_Read_Update_Delete()
     xxx = ActiveCell.Column
     xxxx = Selection.Rows.Count
     xxxxx = Worksheets("Sheet1").Cells(1, 1)
-    ' Ctrl+F rasti skaiciu 9985
-    Worksheets("Sheet1").Cells.Find(What:="9985", After:=ActiveCell, LookIn:=xlFormulas, LookAt:= _
-        xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:=False _
-        , SearchFormat:=False).Activate
+    fileNameShort = Left(ThisWorkbook.Name, Len(ThisWorkbook.Name) - 5)
 
     ' Update
     Workbooks("Book1").Worksheets("Sheet1").Range("B3").Value = 12
+    ThisWorkbook.Sheets("Book1").Range("A1").Value = 55
     Range("B:C").EntireColumn.AutoFit
     Range("C2").Value = "penki"
     Range("A2", "B4").Value = 998
@@ -225,14 +223,20 @@ Sub vba5_Excel_CRUD_Copy_Read_Update_Delete()
     Selection.EntireColumn.Delete
     Selection.ClearContents
     Range("B1:C10").ClearContents
-    
+
+    ' Find
+    ' Ctrl+F "9985"
+    Worksheets("Sheet1").Cells.Find(What:="9985", After:=ActiveCell, LookIn:=xlFormulas, LookAt:= _
+        xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:=False _
+        , SearchFormat:=False).Activate
+
 mmm:
                
 End Sub
 '
 '
 '
-Sub vba5_Excel_Workbook_File()
+Sub vba5_Excel_Workbook_Files()
 
     Dim file As Object
     Dim fldr As Object
@@ -244,6 +248,7 @@ Sub vba5_Excel_Workbook_File()
     Workbooks.Open ("C:\CodingVBA\test2.xlsx")
     Workbooks.Open fileName:="C:\CodingVBA\test.xlsx", ReadOnly:=True
     Workbooks.Open fileName:="W:\GAMYBOS PLANAS\GAMYBOS PLANAS.xlsx", UpdateLinks:=0, ReadOnly:=True
+    Workbooks.Open fileName:="Y:\CodingVBA\test.xlsm", Password:="xxx", ReadOnly:=False
 
     ' pavercia celiu irasus hyperlinkais, reikia nurodyti tikslu adresa
     Windows("test.xlsx").Activate
@@ -409,7 +414,7 @@ Function vba91_Funkcija_Rekursija(n As Single) As Single
 End Function
 '
 '
-' Failo txt sukurimas, irasas ir istrynimas
+' Tekstinio Failo sukurimas, irasas ir istrynimas
 Public FSO As New FileSystemObject
 Sub CreateFile()
 
@@ -441,5 +446,45 @@ Sub CreateFile()
     End If
     
 End Sub
+'
+'
+' [button]
+Sub FindByClipboarValue()
+
+    Dim dataObj As Object
+    Dim rr As String
+    Dim txt As String
+    
+    rr = ActiveCell.Address
+    ' Error handler
+    On Error GoTo Skip
+'    [a1] = rr
+    
+    ' Set up the data object
+    Set dataObj = CreateObject("New:{1C3B4210-F441-11CE-B9EA-00AA006B1A69}")
+    
+    ' Get the data from the clipboard
+    dataObj.GetFromClipboard
+    
+    ' Get the clipboard contents
+    txt = dataObj.GetText(1)
+    
+    Cells.Find(What:="*" & txt & "*", After:=ActiveCell, LookIn:=xlFormulas, LookAt _
+        :=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:= _
+        False, SearchFormat:=False).Activate
+
+Skip:
+
+    If ActiveCell.Address = rr Then
+        MsgBox ("NERASTA")
+        Beep
+    End If
+    
+    ActiveWindow.SmallScroll Down:=-100
+
+End Sub
+'
+'
+'
 
 
