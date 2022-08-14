@@ -1,32 +1,8 @@
 Attribute VB_Name = "VBA_Sintakse_GitHub"
-' VBA mano kodai, metodai, funkcijos, klases
-Sub aba1_CopyPaste_Reikia_Sutvarkyti()
-    
-
-End Sub
 '
 '
 '
-Sub vba2_Menu()
-
-' MENIU
-    ' 3 Sintakse
-        ' MsgBox, Dim, If, For, On Error, Beep
-    ' 5 Excel
-        ' Range, Cell,
-    ' 7 Gudrybes
-        ' Failu nuskaitymas is Folder
-    ' 9 Class
-
-' IDE:
-'   VBA:        Ctrl+[Arrow Up/Down]- persokti i kita Sub
-'   Rubberduck: Ctrl+P              - identacija
-
-End Sub
-'
-'
-'
-Sub vba3_Sintakse_Dim_If_For()
+Sub vba1_dim_if_for()
 
 MsgBox ("Mano VBA biblioteka GitHub'e")
 Debug.Print Chr(10) & "Spausdinimas i konsole"
@@ -43,7 +19,7 @@ If txt = "Ne Bezdalius" Then GoTo exit_if
     '    f2 = 1
     'ElseIf n = 3 Then
     '    f2 = 3
-    'Else:
+    'Else: ' kam reikalingas : ???
     '    f2 = n * f2(n - 1)
     'End If
 exit_if:
@@ -56,49 +32,71 @@ For i = 5 To 7 Step 2
     ' For Each ziureti -> vba7_Gudrybes
 exit_for:
 
-
-GoTo exit_goto
-exit_goto:
-
-
-On Error GoTo exit_on_error
-'On Error Resume Next
-'exit_on_error: Exit Sub
-exit_on_error:
-
-
-Beep ' sisteminis pyptelejimas
-
 End Sub ' Sub VbaManoGitBiblioteka()
 '
 '
 '
-Sub vba3_Sintakse2_Array()
+Sub vba2_GoTo_ErrorHanding_Beep()
 
-Dim arr1(3) As Integer ' 4 nariu masyvas
-Dim arr2(1 To 100) As Integer ' Masyvo tipo apibrezimas 100 nariu
-Dim arrMatrix(1 To 9, 1 To 5) As Integer ' Matricos tipo masyvas 9x5
+    GoTo ex1
+    '''
+ex1:
+    
+    
+    On Error GoTo ex2 ' /Resume Next /Exit Sub
+    '''
+ex2:
+    
+    Beep ' sisteminis pyptelejimas
 
-' kaip deklaruoti su kintamu dydþiu
-Dim arr4() As Integer
+End Sub ' Sub VbaManoGitBiblioteka()
+'
+
+'
+Sub vba3_Array()
+
+' deklaravimas
+    Dim arr1(3) As Integer ' 4 nariu masyvas index: [0,1,2,3]
+    Dim arr2(1 To 100) As Integer ' 100 nariu masyvas
+
+    arrLenght = (UBound(arr1) - LBound(arr1) + 1) ' masyvo dydis
+    Debug.Print "arrLenght: " & arrLenght
+
+' kaip deklaruoti su kintamu dydziu (konstanta)
+    Dim arr3() As Integer
     Dim kint As Integer
     kint = 100
-    ReDim arr4(1 To kint) As Integer
+    ReDim arr3(1 To kint) As Integer
 
-' masyvo dydis
-length = UBound(arr1) - LBound(arr1) + 1
+' iteracijos
+    Dim arr5 As Variant
+        arr5 = Array("pirmas arr5 elementas", 4, 1, 1, " kaþkas", 1, 1, 13, 1, 2, "paskutinis arr5 elementas")
+    
+    For Each Item In arr5
+        Debug.Print ("For Each Item In arr5: " & Item)
+    Next Item
+    
+    For i = 0 To (UBound(arr5) - LBound(arr5))
+        Debug.Print "For i=0 To (UBound(arr5) - LBound(arr5)), kai i=" & i & " " & arr5(i)
+    Next i
 
-'Array
-Dim arr5 As Variant
-    arr5 = Array("pirmas array5 elementas", 4, 1, 1, " kaþkas", 1, 1, 13, 1, 2, 1)
+End Sub
+'
+'
+'
+Sub vba3_Array_2D()
 
-For Each Item In arr5
-    Debug.Print Item
-Next Item
+' 2D masyvai
+    Dim arr2d(1 To 3, 1 To 2) As Integer ' 2D array 3x2
+    Dim arr2d2 As Variant
+        arr2d2 = [{"A","B";"1","2";"++","--"}] '2D array example 3x2
 
-For i = 1 To (UBound(arr5) - LBound(arr5) + 1)
-    Debug.Print arr5(i, 1) + "-" + arr5(i, 2)
-Next i
+    arr2dLenght = (UBound(arr2d, 1) - LBound(arr2d, 1) + 1) ' masyvo dydis
+    Debug.Print "arr2dLenght: " & arr2dLenght
+
+    For Each Item In arr2d2
+        Debug.Print ("For Each Item In arr2d: " & Item)
+    Next Item
 
 End Sub
 '
@@ -116,11 +114,11 @@ End Sub
 '
 '
 '
-Sub vba4_String()
+Sub vba4_STRING()
 
 oel = Chr(10)
 eol2 = vbNewLine
-Debug.Print ("Mano VBA bibl" & eol & "ioteka GitHub'e")
+Debug.Print ("Mano VBA bibl" & Eol & "ioteka GitHub'e")
 
 
 End Sub
@@ -338,8 +336,7 @@ End Sub
 '
 '
 '
-Sub vba8_Back_End_Gudrybes()
-
+Sub vba8_vba_gudrybes_BackEnd()
 
 ' Greitas kodo vykdymas
     ' At the Beginning of your code = False
@@ -371,7 +368,7 @@ End Sub
 '
 '
 ' VBA klases randasi modulyje "Class Modules"
-Sub vba9_Klase()
+Sub vba9_Class()
 
     ' Class Modules: "Komponentas"
 
@@ -392,8 +389,8 @@ Sub vba9_Klase()
     'Public num As Integer
 
     ' OBJEKTAS
-    Dim o As Komponentas
-    Set o = New Komponentas
+    Dim o As komponentas
+    Set o = New komponentas
     
     ' Set
     o.gamintojas = "Phoenix"
@@ -405,7 +402,7 @@ End Sub
 '
 '
 ' rekursine funkcija faktorialui skaiciuoti
-Function vba91_Funkcija_Rekursija(n As Single) As Single
+Function vba7_vba_gudrybes_Funkcija_Rekursija(n As Single) As Single
     If n <= 1 Then
         f2 = 1
     Else:
@@ -416,7 +413,10 @@ End Function
 '
 ' Tekstinio Failo sukurimas, irasas ir istrynimas
 Public FSO As New FileSystemObject
-Sub CreateFile()
+'
+'
+'
+Sub vba99_ManoMetodai_CreateFile()
 
     Dim txtstr As TextStream
     Dim fileName As String
@@ -449,7 +449,7 @@ End Sub
 '
 '
 ' [button]
-Sub FindByClipboarValue()
+Sub vba99_ManoMetodai_FindByClipboarValue()
 
     Dim dataObj As Object
     Dim rr As String
@@ -476,8 +476,8 @@ Sub FindByClipboarValue()
 Skip:
 
     If ActiveCell.Address = rr Then
-        MsgBox ("NERASTA")
         Beep
+        MsgBox ("NERASTA")
     End If
     
     ActiveWindow.SmallScroll Down:=-100
