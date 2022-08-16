@@ -147,10 +147,12 @@ Sub vba5_Excel_Selection()
     Rows(3).Select
     Columns(3).Select
     
-    ' Special Cells
+    ' Special Cells: Visible/Blank
     Selection.SpecialCells(xlCellTypeVisible).Select
     Range("A:A").SpecialCells(xlCellTypeBlanks).Select
 
+    ' Count of visible cells
+    Range("Table1[Kodas]").SpecialCells(xlCellTypeVisible).Count
 
     ' Workbook, Sheet, Cell
     Worksheets("Sheet1").Cells(ActiveCell.Row, 2).Select
