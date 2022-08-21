@@ -245,6 +245,11 @@ Sub vba5_Excel_Workbook_Files()
     mfileName = "C:\CodingVBA\test.xlsx"
     mfileName2 = "C:\CodingVBA\test2.xlsx"
 
+    ' get file name
+    mfile_Name = ThisWorkbook.Name
+    mfile_PathName = ThisWorkbook.FullName
+
+
     Workbooks.Open ("C:\CodingVBA\test2.xlsx")
     Workbooks.Open fileName:="C:\CodingVBA\test.xlsx", ReadOnly:=True
     Workbooks.Open fileName:="W:\GAMYBOS PLANAS\GAMYBOS PLANAS.xlsx", UpdateLinks:=0, ReadOnly:=True
@@ -299,7 +304,10 @@ Sub vba7_vba_gudrybes_LoopThroughFilesInFolder()
     Dim file As Object
     Dim fldr As Object
     Set FSO = CreateObject("scripting.FileSystemObject")
-    Set fldr = FSO.getfolder("C:\Users\User\Desktop")
+
+    a = "C:\Users\User\Desktop"
+    b = "C:\Users\User\Downloads\Agatha Christie's. Poirot.720p.BRip.LT.LM part03"
+    Set fldr = FSO.getfolder(b)
     For Each file In fldr.Files
     '    If Right(File.Name, 4) = ".mp3" Then
         'add to listbox
