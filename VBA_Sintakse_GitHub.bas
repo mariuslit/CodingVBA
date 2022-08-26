@@ -68,6 +68,10 @@ Sub vba3_Array()
     kint = 100
     ReDim arr3(1 To kint) As Integer
 
+' deklaruoti ir priskirti reiksmes
+    Dim arr4() As Integer
+    arr4 = Array("Vardas", "Amþius", "Pastabos")
+
 ' iteracijos
     Dim arr5 As Variant
         arr5 = Array("pirmas arr5 elementas", 4, 1, 1, " kaþkas", 1, 1, 13, 1, 2, "paskutinis arr5 elementas")
@@ -116,9 +120,13 @@ End Sub
 '
 Sub vba4_STRING()
 
+
+r = Replace("tekstas aaa xxx", "aaa", "bbb")
+Debug.Print r
+
 oel = Chr(10)
-eol2 = vbNewLine
-Debug.Print ("Mano VBA bibl" & Eol & "ioteka GitHub'e")
+Eol2 = vbNewLine
+Debug.Print ("Mano VBA bibl" & Eol2 & "ioteka GitHub'e ***")
 
 
 End Sub
@@ -207,7 +215,6 @@ Sub vba5_Excel_CRUD_Copy_Read_Update_Delete()
     xxx = ActiveCell.Column
     xxxx = Selection.Rows.Count
     xxxxx = Worksheets("Sheet1").Cells(1, 1)
-    fileNameShort = Left(ThisWorkbook.Name, Len(ThisWorkbook.Name) - 5)
 
     ' Update
     Workbooks("Book1").Worksheets("Sheet1").Range("B3").Value = 12
@@ -233,23 +240,37 @@ Sub vba5_Excel_CRUD_Copy_Read_Update_Delete()
 mmm:
                
 End Sub
+
 '
 '
 '
 Sub vba5_Excel_Workbook_Files()
 
+    MsgBox "ok"
+    Exit Sub
+
     Dim file As Object
     Dim fldr As Object
     Dim mfileName, mfileName2 As String
-    
+
     mfileName = "C:\CodingVBA\test.xlsx"
     mfileName2 = "C:\CodingVBA\test2.xlsx"
 
-    ' get file name
-    mfile_Name = ThisWorkbook.Name
-    mfile_PathName = ThisWorkbook.FullName
+    fileNameShort = Left(ThisWorkbook.Name, Len(ThisWorkbook.Name) - 5) ' nerodo ".xlsx"
 
+    ' read only mode
+    Dim wBook As Workbook
+    Dim mFilePath As String
+    mFilePath = "C:\Users\User\Documents\DOKUMENTAI\Je-elkas\github_ticelkas\Sandelis (server)\x II auksto likuciai senas.xlsm"
+    Set wBook = Workbooks.Open(fileName:=mFilePath, ReadOnly:=True)
+    If wBook.ReadOnly Then MsgBox "excel darbaknyge atverta read only rezimu"
+    If ThisWorkbook.Name = "II auksto likuciai.xlsm" And Not ActiveWorkbook.ReadOnly Then MsgBox "blogai"
 
+    ' this workbook
+    MsgBox ThisWorkbook.Name
+    MsgBox ActiveWorkbook.ReadOnly
+
+    ' open file
     Workbooks.Open ("C:\CodingVBA\test2.xlsx")
     Workbooks.Open fileName:="C:\CodingVBA\test.xlsx", ReadOnly:=True
     Workbooks.Open fileName:="W:\GAMYBOS PLANAS\GAMYBOS PLANAS.xlsx", UpdateLinks:=0, ReadOnly:=True
@@ -265,11 +286,13 @@ Sub vba5_Excel_Workbook_Files()
     ' SHEET
     Worksheets.Add
 
+    ' save
     ActiveWorkbook.Save
 
+    ' close
     ActiveWindow.Close ' uzdaro darbaknyge
-    ' uzdaro darbaknyge neissaugodamas
-    ActiveWindow.Close False
+    ActiveWindow.Close True ' uzdaro darbaknyge issaugodamas
+    ActiveWindow.Close False ' uzdaro darbaknyge neissaugodamas
 
 End Sub
 '
@@ -282,6 +305,33 @@ ActiveSheet.PageSetup.PrintArea = "APSK_PLOKSTE[[Data_]:[Pastabos_]]"
 
 ' spausdinti lapà
 ActiveWindow.SelectedSheets.PrintOut Copies:=1, Collate:=True, IgnorePrintAreas:=False
+End Sub
+'
+'
+'
+Sub vba6_Table_Selection()
+
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+
+    Sheet1.Range("Table_Apskaita").SpecialCells (xlCellTypeVisible)
+
+    ' eiluciu skaicius lenteleje
+    eil = ws.Range("Table1").Rows.Count
+    eil2 = eil + ws.Range("Table1[[#Headers],[Column1]]").Row + 1
+
+    Range("Table1").Select ' duomenu sritis
+    Range("Table1[Column1]").Select ' pirmas stulpelis
+    Range("Table1[[#Headers],[Column1]]").Select ' pirmo stulpelio header
+
+    Range("Table1[#All]").Select ' visa lentele + headers
+    Range("Table1[[#All],[Column1]]").Select ' pirmas stulpelis + header
+    Range("Table1[#Headers]").Select ' visi headers
+  
+    eiluciuSkaiciusLenteleje = Range("Table1").Rows.Count
+    
+    Cells(eil2, 1).Select
+
 End Sub
 '
 '
@@ -306,8 +356,8 @@ Sub vba7_vba_gudrybes_LoopThroughFilesInFolder()
     Set FSO = CreateObject("scripting.FileSystemObject")
 
     a = "C:\Users\User\Desktop"
-    b = "C:\Users\User\Downloads\Agatha Christie's. Poirot.720p.BRip.LT.LM part03"
-    Set fldr = FSO.getfolder(b)
+    b = "C:\Users\User\Downloads\torrentai"
+    Set fldr = FSO.getfolder(a)
     For Each file In fldr.Files
     '    If Right(File.Name, 4) = ".mp3" Then
         'add to listbox
@@ -367,7 +417,6 @@ Sub vba8_vba_gudrybes_BackEnd()
     Application.EnableEvents = False
     Application.EnableEvents = True
     
-
 ' Pauze 0:00:02 = 2 sec
     Application.Wait (Now + TimeValue("0:00:02"))
         ' Sleep Butina deklaracija pries funkcija
@@ -497,4 +546,25 @@ End Sub
 '
 '
 
-
+Sub vba999_ManoMetodai_Row_Hash_Code_Generator()
+    For i = 1 To 500
+        ' PAVOJINGA:
+        'Cells(i, 1).Value = vba999_ManoMetodai_Row_Hash_Code
+        vba999_ManoMetodai_Laukti
+    Next i
+    'Range("a:a").Clear
+End Sub
+' HashCode generavimas
+Public Function vba999_ManoMetodai_Row_Hash_Code() As String
+    formatas = "YYYYMMDDhhmmss"
+    Row_Hash_Code = Replace("hash" & Format(Now(), formatas) & Right(Format(Timer, "0.000"), 4), ",", "")
+    'Debug.Print Row_Hash_Code
+End Function
+'
+Sub vba999_ManoMetodai_Laukti()
+    Application.Wait (Now + 0.0000001) '1/10sec
+    For i = 1 To 200
+        ' PAVOJINGA:
+        'Range("b1") = i
+    Next i
+End Sub
