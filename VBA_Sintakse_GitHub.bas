@@ -1,4 +1,35 @@
 Attribute VB_Name = "VBA_Sintakse_GitHub"
+
+'
+'
+'
+Sub vba0_Declarations_Public_Private()
+' Public matomas visoje Excel kol failas atvertas
+' Global yra tas pats kaip Public tik senesnes versijos,
+'     laikomat tik del suderinamumo su anksciau parasytu kodu
+' Private matomas tik Modulio viduje
+
+' Null yra negaliojantis duomenu tipas
+
+' ?
+' Function, Sub, or Property
+
+
+' MsgBox
+' MsgBox Title:="Task Box", Prompt:="Task Completed!"
+    'answer3 = MsgBox(Title:="Question 3", Prompt:="Are you happy with your salary?", Buttons:=4)
+
+End Sub
+'
+'
+'
+Sub vba0_MsgBox()
+
+' MsgBox
+MsgBox Title:="Task Box", Prompt:="Task Completed!"
+answer = MsgBox(Title:="Klausimëlis", Prompt:="Ar tu Laimingas?", Buttons:=4)
+
+End Sub
 '
 '
 '
@@ -237,8 +268,29 @@ Sub vba5_Excel_CRUD_Copy_Read_Update_Delete()
         xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:=False _
         , SearchFormat:=False).Activate
 
+    ' kopijuoti skaiciu kaip teksta su nuliais priekyje
+    ' JEIGU A1 = 0123
+    Range("B1").Value = Range("A1").Value ' 123
+    Range("B2").Value = Range("A1").Value2 ' 123
+    Range("B3").Value = Range("A1").Text ' 123
+    
+    Range("C1").Value = Range("A1").Value & "" ' 123
+    Range("C2").Value = Range("A1").Value2 & "" ' 123
+    Range("C3").Value = Range("A1").Text & "" ' 123
+    
+    ActiveSheet.Range("D:D").NumberFormat = "@"
+    ActiveSheet.Range("E:E").NumberFormat = "@"
+    
+    Range("D1").Value = Range("A1").Value ' 0123
+    Range("D2").Value = Range("A1").Value2 ' 0123
+    Range("D3").Value = Range("A1").Text ' 0123
+    
+    Range("E1").Value = Range("A1").Value & "" ' 0123
+    Range("E2").Value = Range("A1").Value2 & "" ' 0123
+    Range("E3").Value = Range("A1").Text & "" ' 0123
+    
 mmm:
-               
+
 End Sub
 
 '
@@ -246,8 +298,11 @@ End Sub
 '
 Sub vba5_Excel_Workbook_Files()
 
+    ' ThisWorkbook   - failas kuriame randasi paleizdiamasis kodas
+    ' ActiveWorkbook - aktyvus failas
+
     MsgBox "ok"
-    Exit Sub
+    'Exit Sub
 
     Dim file As Object
     Dim fldr As Object
@@ -568,3 +623,4 @@ Sub vba999_ManoMetodai_Laukti()
         'Range("b1") = i
     Next i
 End Sub
+
